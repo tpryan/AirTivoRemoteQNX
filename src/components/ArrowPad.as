@@ -1,9 +1,14 @@
 package components
 {
 	import flash.display.Sprite;
-	import flash.events.MouseEvent;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.text.TextFormat;
+	
+	import qnx.ui.buttons.IconButton;
 	import qnx.ui.buttons.LabelButton;
+	import qnx.ui.skins.SkinStates;
+	
 	
 	[Event(name="upClick", type="flash.events.Event")]
 	[Event(name="downClick", type="flash.events.Event")]
@@ -20,31 +25,36 @@ package components
 			
 			
 			//up
-			var up:LabelButton = getButton("↑", 2, 1);
+			var up:IconButton = getIconButton("/assets/controls/a_up_s1.png", 2, 1);
 			up.addEventListener(MouseEvent.CLICK, up_clicked);
 			addChild(up);
 			
 			//left
-			var left:LabelButton = getButton("←", 1, 2);
+			var left:IconButton = getIconButton("/assets/controls/a_left_s1.png", 1, 2);
 			left.addEventListener(MouseEvent.CLICK, left_clicked);
 			addChild(left);
 			
 			//right
-			var right:LabelButton = getButton("→", 3, 2);
+			var right:IconButton = getIconButton("/assets/controls/a_right_s1.png", 3, 2);
 			right.addEventListener(MouseEvent.CLICK, right_clicked);
 			addChild(right);
 			
 			//down
-			var down:LabelButton = getButton("↓", 2, 3);
+			var down:IconButton = getIconButton("/assets/controls/a_down_s1.png", 2, 3);
 			down.addEventListener(MouseEvent.CLICK, down_clicked);
 			addChild(down);
 			
 			//select
-			var select:LabelButton = getButton("Select", 2, 2);
-			select.width = select.width + 20;
-			select.height = select.height + 20;
-			select.x = select.x -10;
-			select.y = select.y - 10;
+			var selectFormat:TextFormat = new TextFormat();
+			selectFormat.font = "DejaVu Sans";
+			selectFormat.size = 14;
+			
+			var select:LabelButton = getLabelButton("Select", 2, 2);
+			select.setTextFormatForState(selectFormat,SkinStates.DISABLED);
+			select.setTextFormatForState(selectFormat,SkinStates.UP); 
+			select.setTextFormatForState(selectFormat,SkinStates.DOWN);
+			select.setTextFormatForState(selectFormat,SkinStates.SELECTED);
+			select.setTextFormatForState(selectFormat,SkinStates.DISABLED_SELECTED);
 			select.addEventListener(MouseEvent.CLICK, select_clicked);
 			addChild(select);
 			

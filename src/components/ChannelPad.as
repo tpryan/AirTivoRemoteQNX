@@ -6,6 +6,7 @@ package components
 	import flash.events.MouseEvent;
 	import flash.text.TextFormat;
 	
+	import qnx.ui.buttons.IconButton;
 	import qnx.ui.buttons.LabelButton;
 	import qnx.ui.text.Label;
 	
@@ -29,12 +30,12 @@ package components
 			
 			
 			//up
-			var up:LabelButton = getButton("↑", 1, 1);
+			var up:IconButton = getIconButton("/assets/controls/c_up_s1.png", 1, 1);
 			up.addEventListener(MouseEvent.CLICK, up_clicked);
 			addChild(up);
 			
 			//down
-			var down:LabelButton = getButton("↓", 1, 2);
+			var down:IconButton = getIconButton("/assets/controls/c_down_s1.png", 1, 2);
 			down.addEventListener(MouseEvent.CLICK, down_clicked);
 			addChild(down);
 			

@@ -30,6 +30,7 @@ package
 	import qnx.ui.listClasses.ListSelectionMode;
 	import qnx.ui.skins.SkinStates;
 	import qnx.ui.theme.ThemeGlobals;
+	import components.TivoForm;
 	
 	
 	// The following metadata specifies the size and properties of the canvas that
@@ -51,12 +52,13 @@ package
 		protected var tivoList:List = new List();
 		protected var tivoForm:TivoForm = new TivoForm();
 		
-		private const BUTTON_WIDTH:int = 50;
+		private const BUTTON_WIDTH:int = 170;
 		private const BUTTON_HEIGHT:int = 50;
 		private const COL1X:int= 10;
 		private const COL2X:int= 200;
 		private const COL3X:int= 390;
 		private const TOP:int= 10;
+		private const ROW2Y:int = 280;
 		
 		public function TivoRemotePlayBook()
 		{
@@ -73,60 +75,26 @@ package
 			bbFormat.font = "DejaVu Sans";
 			
 			
-			var closeButton:LabelButton = new LabelButton();
-			closeButton.label = "Close";
-			closeButton.x = (stage.stageWidth - closeButton.width) -10 ;
-			closeButton.y = 10;
-			closeButton.setTextFormatForState(bbFormat,SkinStates.DISABLED);
-			closeButton.setTextFormatForState(bbFormat,SkinStates.UP); 
-			closeButton.setTextFormatForState(bbFormat,SkinStates.DOWN);
-			closeButton.setTextFormatForState(bbFormat,SkinStates.SELECTED);
+			var closeButton:LabelButton = getLabelButton("Close",(stage.stageWidth - BUTTON_WIDTH) -10, 10);
 			closeButton.addEventListener(MouseEvent.CLICK, closeWindow);
 			addChild(closeButton);
 			
 			
-			var tivoButton:LabelButton = new LabelButton();
-			tivoButton.label = "TiVo";
-			tivoButton.x = COL1X ;
-			tivoButton.y = TOP;
-			tivoButton.height = BUTTON_HEIGHT;
-			tivoButton.setTextFormatForState(bbFormat,SkinStates.DISABLED);
-			tivoButton.setTextFormatForState(bbFormat,SkinStates.UP); 
-			tivoButton.setTextFormatForState(bbFormat,SkinStates.DOWN);
-			tivoButton.setTextFormatForState(bbFormat,SkinStates.SELECTED);
+			var tivoButton:LabelButton = getLabelButton("Tivo",COL2X, TOP);
 			tivoButton.addEventListener(MouseEvent.CLICK, tivo_clickHandler);
 			addChild(tivoButton);
 			
-			var liveButton:LabelButton = new LabelButton();
-			liveButton.label = "Live TV";
-			liveButton.x = COL2X;
-			liveButton.y = TOP;
-			liveButton.height = BUTTON_HEIGHT;
-			liveButton.setTextFormatForState(bbFormat,SkinStates.DISABLED);
-			liveButton.setTextFormatForState(bbFormat,SkinStates.UP); 
-			liveButton.setTextFormatForState(bbFormat,SkinStates.DOWN);
-			liveButton.setTextFormatForState(bbFormat,SkinStates.SELECTED);
+			var liveButton:LabelButton =  getLabelButton("Live TV",COL2X, tivoButton.y + tivoButton.height + 10);
 			liveButton.addEventListener(MouseEvent.CLICK, live_clickHandler);
 			addChild(liveButton);
 			
+			var infoButton:LabelButton =  getLabelButton("Info",COL2X, liveButton.y + liveButton.height + 10);
+			infoButton.addEventListener(MouseEvent.CLICK, live_clickHandler);
+			addChild(infoButton);
 			
-			tivoList.x = COL3X;
-			tivoList.y = TOP;
-			tivoList.height = 150;
-			tivoList.width = 300;
-			tivoList.scrollable = true;
-			tivoList.selectionMode = ListSelectionMode.SINGLE;
-			tivoList.dataProvider = convertTivosToDataProvider(tivoService.tivos);
-			tivoList.setSkin(TivoListItemRenderer);
-			tivoList.addEventListener(MouseEvent.CLICK, handleListChange);
-			tivoList.selectedIndex = 0;
-			addChild(tivoList);
-			handleListChange(null);
-			
-			
-			tivoForm.x = COL3X;
-			tivoForm.y = tivoList.height + 50;
-			addChild(tivoForm);
+			var guideButton:LabelButton =  getLabelButton("Guide",COL2X, infoButton.y + infoButton.height + 10);
+			guideButton.addEventListener(MouseEvent.CLICK, live_clickHandler);
+			addChild(guideButton);
 			
 			
 		}
@@ -151,8 +119,8 @@ package
 		
 		private function drawChannelPad():void{
 			channelPad = new ChannelPad();
-			channelPad.x = COL2X ;
-			channelPad.y = BUTTON_HEIGHT + 70;
+			channelPad.x = COL3X ;
+			channelPad.y = ROW2Y;
 			channelPad.addEventListener("upClick", channelUp_clickHandler);
 			channelPad.addEventListener("downClick", channelDown_clickHandler);
 			addChild(channelPad);
@@ -160,8 +128,8 @@ package
 		
 		private function drawThumbsPad():void{
 			thumbsPad = new ThumbsPad();
-			thumbsPad.x = COL3X - thumbsPad.width - 10 ;
-			thumbsPad.y = BUTTON_HEIGHT + 70;
+			thumbsPad.x = COL3X;
+			thumbsPad.y = TOP;
 			thumbsPad.addEventListener("upClick", thumbsUp_clickHandler);
 			thumbsPad.addEventListener("downClick", thumbsDown_clickHandler);
 			addChild(thumbsPad);
@@ -170,7 +138,7 @@ package
 		private function drawPlayControlPad():void{
 			playControlPad = new PlayControlPad();
 			playControlPad.x= COL1X;
-			playControlPad.y = 330;
+			playControlPad.y = ROW2Y;
 			playControlPad.addEventListener("reverse", actionReverse_clickHandler);
 			playControlPad.addEventListener("replay", actionReplay_clickHandler);
 			playControlPad.addEventListener("pause", actionPause_clickHandler);
@@ -183,7 +151,7 @@ package
 		private function drawArrowPad():void{
 			arrowPad = new ArrowPad();
 			arrowPad.x= COL1X;
-			arrowPad.y= BUTTON_HEIGHT + 50;
+			arrowPad.y= TOP;
 			arrowPad.addEventListener("upClick", up_clickHandler);
 			arrowPad.addEventListener("downClick", down_clickHandler);
 			arrowPad.addEventListener("leftClick", left_clickHandler);
@@ -195,7 +163,7 @@ package
 		private function drawNumPad():void{
 			numpad = new NumberPad();
 			numpad.x = COL2X;
-			numpad.y = 300;
+			numpad.y = ROW2Y;
 			numpad.addEventListener("num1", pad1_clickHandler);
 			numpad.addEventListener("num2", pad2_clickHandler);
 			numpad.addEventListener("num3", pad3_clickHandler);
@@ -243,6 +211,25 @@ package
 			
 			addChild( sprite );
 			
+		}
+		
+		protected function getLabelButton(label:String, x:int, y:int ):LabelButton{
+			var bbFormat:TextFormat = new TextFormat();
+			bbFormat.font = "DejaVu Sans";
+			
+			var button:LabelButton = new LabelButton();
+			button.label = label;
+			button.width = BUTTON_WIDTH;
+			button.height = BUTTON_HEIGHT;
+			
+			button.x = x;
+			button.y = y;
+			
+			button.setTextFormatForState(bbFormat,SkinStates.DISABLED);
+			button.setTextFormatForState(bbFormat,SkinStates.UP); 
+			button.setTextFormatForState(bbFormat,SkinStates.DOWN);
+			button.setTextFormatForState(bbFormat,SkinStates.SELECTED);
+			return button;
 		}
 		
 		protected function initTivo():void{

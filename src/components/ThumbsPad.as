@@ -7,7 +7,11 @@ package components
 	import flash.text.TextFormat;
 	
 	import qnx.ui.buttons.LabelButton;
+	import qnx.ui.buttons.IconButton;
 	import qnx.ui.text.Label;
+	
+	import skins.ThumbsDownButtonSkin;
+	import skins.ThumbsUpButtonSkin;
 	
 	[Event(name="upClick", type="flash.events.Event")]
 	[Event(name="downClick", type="flash.events.Event")]
@@ -20,31 +24,19 @@ package components
 			super();
 			
 			
-			var labelFormat:TextFormat = new TextFormat();
-			labelFormat.italic = true;  
-			labelFormat.align = "center";
-			labelFormat.font = "DejaVu Sans";
-			
-			
 			
 			
 			//up
-			var up:LabelButton = getButton("↑", 1, 1);
+			var up:IconButton = getIconButton("/assets/controls/thumbsup_s1.png", 1, 1);
+			up.setSkin(ThumbsDownButtonSkin);
 			up.addEventListener(MouseEvent.CLICK, up_clicked);
 			addChild(up);
 			
 			//down
-			var down:LabelButton = getButton("↓", 1, 2);
+			var down:IconButton = getIconButton("/assets/controls/thumbsdown_s1.png", 1, 2);
+			down.setSkin(ThumbsUpButtonSkin);
 			down.addEventListener(MouseEvent.CLICK, down_clicked);
 			addChild(down);
-			
-			//label
-			var label:Label = new Label();
-			label.text = "Thumbs";
-			label.y = down.y + down.height + 10;
-			label.width = 70;
-			label.format = labelFormat;
-			addChild(label);
 			
 			
 		}

@@ -9,6 +9,8 @@ package components
 	import qnx.ui.buttons.LabelButton;
 	import qnx.ui.skins.SkinStates;
 	
+	import skins.NumberButtonSkin;
+	
 	[Event(name="num1", type="flash.events.Event")]
 	[Event(name="num2", type="flash.events.Event")]
 	[Event(name="num3", type="flash.events.Event")]
@@ -32,80 +34,74 @@ package components
 		
 			
 			super();
-			var BUTTON_WIDTH:int = 50;
-			var BUTTON_HEIGHT:int = 50;
-			
-			var COL1X:int = 10;
-			var COL2X:int = 70;
-			var COL3X:int = 130;
-			
-			var ROW1Y:int = 10;
-			var ROW2Y:int = 70;
-			var ROW3Y:int = 130;
-			var ROW4Y:int = 190;
 			
 			//1
-			var num1:LabelButton = getButton("1", 1, 1);
+			var num1:LabelButton = getLabelButton("1", 1, 1);
 			num1.addEventListener(MouseEvent.CLICK, num0_clicked);
 			addChild(num1);
 			
 			//2
-			var num2:LabelButton = getButton("2", 2, 1);
+			var num2:LabelButton = getLabelButton("2", 2, 1);
 			num2.addEventListener(MouseEvent.CLICK, num2_clicked);
 			addChild(num2);
 			
 			//3
-			var num3:LabelButton = getButton("3", 3, 1);
+			var num3:LabelButton = getLabelButton("3", 3, 1);
 			num3.addEventListener(MouseEvent.CLICK, num3_clicked);
 			addChild(num3);
 			
 			//4
-			var num4:LabelButton = getButton("4", 1, 2);
+			var num4:LabelButton = getLabelButton("4", 1, 2);
 			num4.addEventListener(MouseEvent.CLICK, num4_clicked);
 			addChild(num4);
 			
 			//5
-			var num5:LabelButton = getButton("5", 2, 2);
+			var num5:LabelButton = getLabelButton("5", 2, 2);
 			num5.addEventListener(MouseEvent.CLICK, num5_clicked);
 			addChild(num5);
 			
 			//6
-			var num6:LabelButton = getButton("6", 3, 2);
+			var num6:LabelButton = getLabelButton("6", 3, 2);
 			num6.addEventListener(MouseEvent.CLICK, num6_clicked);
 			addChild(num6);
 			
 			//7
-			var num7:LabelButton = getButton("7", 1, 3);
+			var num7:LabelButton = getLabelButton("7", 1, 3);
 			num7.addEventListener(MouseEvent.CLICK, num7_clicked);
 			addChild(num7);
 			
 			//8
-			var num8:LabelButton = getButton("8", 2, 3);
+			var num8:LabelButton = getLabelButton("8", 2, 3);
 			num8.addEventListener(MouseEvent.CLICK, num8_clicked);
 			addChild(num8);
 			
 			//9
-			var num9:LabelButton = getButton("9", 3, 3);
+			var num9:LabelButton = getLabelButton("9", 3, 3);
 			num9.addEventListener(MouseEvent.CLICK, num9_clicked);
 			addChild(num9);
 			
 			//c - Clear button
-			var numc:LabelButton = getButton("C", 1, 4);
+			var numc:LabelButton = getLabelButton("C", 1, 4);
 			numc.addEventListener(MouseEvent.CLICK, c_clicked);
 			addChild(numc);
 			
 			//0
-			var num0:LabelButton = getButton("0", 2, 4);
+			var num0:LabelButton = getLabelButton("0", 2, 4);
 			num0.addEventListener(MouseEvent.CLICK, num0_clicked);
 			addChild(num0);
 			
 			//e
-			var nume:LabelButton = getButton("E", 3, 4);
+			var nume:LabelButton = getLabelButton("E", 3, 4);
 			nume.addEventListener(MouseEvent.CLICK, e_clicked);
 			addChild(nume);
 		
 		}
 		
+		override protected function getLabelButton(label:String, column:int, row:int ):LabelButton{
+			var button:LabelButton = super.getLabelButton(label, column, row);
+			button.setSkin(NumberButtonSkin);
+			return button;
+		}
 		
 		
 		private function num1_clicked(e:MouseEvent):void{

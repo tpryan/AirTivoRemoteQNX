@@ -1,4 +1,4 @@
-package
+package components
 {
 	import flash.display.Sprite;
 	import flash.text.TextFormat;
